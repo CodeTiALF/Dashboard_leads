@@ -1,5 +1,5 @@
 # Ignorar arquivos sensíveis
-node.js/GIViLeads-Fabbri.csv
+node.js/leads.csv
 
 # Ignorar node_modules
 node_modules/
