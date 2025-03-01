@@ -1,0 +1,161 @@
+/* Variáveis para tema claro */
+:root[data-theme="light"] { 
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --card-bg: #fff;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --navbar-bg: #0d6efd;
+    --border-color: #ddd;
+}
+
+/* Variáveis para tema escuro */
+:root[data-theme="dark"] {
+    --bg-color: #222;
+    --text-color: #f5f5f5;
+    --card-bg: #333;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --navbar-bg: #0a58ca;
+    --border-color: #444;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.card {
+    box-shadow: var(--card-shadow);
+    background-color: var(--card-bg);
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.3s, background-color 0.3s;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.navbar {
+    background-color: var(--navbar-bg) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.navbar .container {
+    padding: 1rem;
+}
+
+h2 {
+    font-weight: bold;
+    margin: 0;
+}
+
+.table th {
+    font-weight: 600;
+    color: #555;
+}
+
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+canvas {
+    max-height: 300px;
+}
+
+#sourceChart {
+    min-height: 400px;  /* Aumentando a altura mínima */
+    width: 100%;
+    margin: 10px 0;
+}
+
+.chart-container {
+    position: relative;
+    height: auto;
+    min-height: 400px;
+    padding: 10px;
+}
+
+/* Botão de alternância de tema */
+#theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+#theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+/* Estilos específicos para o tema escuro */
+.dark-theme .chart-container canvas {
+    filter: brightness(0.95);
+}
+
+/* Estilos específicos para o tema escuro - textos nos cards */
+.dark-theme .text-primary, 
+.dark-theme .text-success, 
+.dark-theme .text-danger {
+    filter: brightness(1.2);
+}
+
+/* Estilos para os controles de tempo */
+.time-controls {
+    padding: 10px 0;
+    display: none; /* Ocultar o controle deslizante */
+}
+
+#current-date {
+    font-size: 1.1rem;
+    padding: 5px 10px;
+}
+
+#time-slider {
+    height: 10px;
+    cursor: pointer;
+}
+
+#time-slider::-webkit-slider-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: var(--navbar-bg);
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+#time-slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: var(--navbar-bg);
+    cursor: pointer;
+}
+
+#play-time, #reset-time {
+    transition: all 0.3s ease;
+}
+
+#play-time:hover, #reset-time:hover {
+    transform: scale(1.05);
+}
+
+.btn-group {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}

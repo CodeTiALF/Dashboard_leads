@@ -1,0 +1,7 @@
+responda tudo em portugues brasil.
+renomei o aquivo "GIViLeads - Fabbri - Atendimento completa leads com carteira ate 2025-02-26.csv" para "GIViLeads-Fabbri.csv"
+refaça o dashboar com os seguinte itens:
+Total: que é acontagem de toda a coluna Id
+Ativo: contagem da coluna Triagem diferente de "DESCARTADOS"
+Descartados: contagem da coluna Triagem somente "DESCARTADOS" 
+Origem: Faça um grafico de barra seguimentando a coluna VeiculoNome
