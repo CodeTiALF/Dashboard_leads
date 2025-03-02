@@ -10,9 +10,6 @@ let lastModifiedTimestamp = 0;
 // Chart instance
 let sourceChart;
 
-// Variável para controle de navegação entre períodos
-let currentPeriodDate = new Date();
-
 // Registrar o plugin de rótulos de dados
 Chart.register(ChartDataLabels);
 
@@ -479,52 +476,99 @@ function setDateFilter(startDate, endDate) {
     const startDatePicker = document.getElementById('start-date-picker');
     const endDatePicker = document.getElementById('end-date-picker');
     
-    // Formatar as datas para o formato YYYY-MM-DD
-    const formatDate = (date) => {
-        return date.toISOString().split('T')[0];
-    };
+    try {
+        // Formatar as datas para o formato YYYY-MM-DD
+        const formatDate = (date) => {
+            const d = new Date(date);
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
 
-    // Definir os valores nos date pickers
-    startDatePicker.value = formatDate(startDate);
-    endDatePicker.value = formatDate(endDate);
-    
-    // Aplicar o filtro
-    applyDateRange();
+        const formattedStartDate = formatDate(startDate);
+        const formattedEndDate = formatDate(endDate);
+        
+        console.log(`Definindo período: ${formattedStartDate} até ${formattedEndDate}`);
+        
+        startDatePicker.value = formattedStartDate;
+        endDatePicker.value = formattedEndDate;
+        
+        // Chamar diretamente a função
+        applyDateRange();
+    } catch (error) {
+        console.error("Erro ao definir filtro de data:", error);
+    }
 }
 
 function setWeekFilter(referenceDate = new Date()) {
-    currentPeriodDate = new Date(referenceDate);
-    const startOfWeek = new Date(referenceDate);
-    startOfWeek.setDate(referenceDate.getDate() - referenceDate.getDay()); // Domingo
-    startOfWeek.setHours(0, 0, 0, 0);
-
-    const endOfWeek = new Date(referenceDate);
-    endOfWeek.setDate(referenceDate.getDate() + (6 - referenceDate.getDay())); // Sábado
-    endOfWeek.setHours(23, 59, 59, 999);
-
-    setDateFilter(startOfWeek, endOfWeek);
+    try {
+        console.log(`Filtro de semana com referência: ${referenceDate}`);
+        currentPeriodDate = new Date(referenceDate);
+        
+        const startOfWeek = new Date(currentPeriodDate);
+        // Ajustar para segunda-feira (1 = segunda, 0 = domingo)
+        const dayOfWeek = startOfWeek.getDay(); // 0 = domingo, 1 = segunda, ..., 6 = sábado
+        const daysToSubtract = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Se domingo, volta 6 dias, senão voltar (dayOfWeek - 1) dias
+        startOfWeek.setDate(startOfWeek.getDate() - daysToSubtract);
+        startOfWeek.setHours(0, 0, 0, 0);
+        
+        const endOfWeek = new Date(startOfWeek);
+        // Adicionar 6 dias para chegar ao domingo
+        endOfWeek.setDate(endOfWeek.getDate() + 6);
+        endOfWeek.setHours(23, 59, 59, 999);
+        
+        console.log(`Semana (segunda a domingo): ${startOfWeek.toLocaleDateString()} até ${endOfWeek.toLocaleDateString()}`);
+        
+        setDateFilter(startOfWeek, endOfWeek);
+    } catch (error) {
+        console.error("Erro ao aplicar filtro de semana:", error);
+    }
 }
 
 function setMonthFilter(referenceDate = new Date()) {
-    currentPeriodDate = new Date(referenceDate);
-    const startOfMonth = new Date(referenceDate.getFullYear(), referenceDate.getMonth(), 1);
-    const endOfMonth = new Date(referenceDate.getFullYear(), referenceDate.getMonth() + 1, 0);
-    endOfMonth.setHours(23, 59, 59, 999);
-
-    setDateFilter(startOfMonth, endOfMonth);
+    try {
+        console.log(`Filtro de mês com referência: ${referenceDate}`);
+        currentPeriodDate = new Date(referenceDate);
+        
+        // Primeiro dia do mês
+        const startOfMonth = new Date(currentPeriodDate.getFullYear(), currentPeriodDate.getMonth(), 1);
+        startOfMonth.setHours(0, 0, 0, 0);
+        
+        // Último dia do mês (dia 0 do próximo mês é o último dia do mês atual)
+        const endOfMonth = new Date(currentPeriodDate.getFullYear(), currentPeriodDate.getMonth() + 1, 0);
+        endOfMonth.setHours(23, 59, 59, 999);
+        
+        console.log(`Mês: ${startOfMonth.toLocaleDateString()} até ${endOfMonth.toLocaleDateString()}`);
+        
+        setDateFilter(startOfMonth, endOfMonth);
+    } catch (error) {
+        console.error("Erro ao aplicar filtro de mês:", error);
+    }
 }
 
 function setYearFilter(referenceDate = new Date()) {
-    currentPeriodDate = new Date(referenceDate);
-    const startOfYear = new Date(referenceDate.getFullYear(), 0, 1);
-    const endOfYear = new Date(referenceDate.getFullYear(), 11, 31);
-    endOfYear.setHours(23, 59, 59, 999);
-
-    setDateFilter(startOfYear, endOfYear);
+    try {
+        console.log(`Filtro de ano com referência: ${referenceDate}`);
+        currentPeriodDate = new Date(referenceDate);
+        
+        // Primeiro dia do ano (1º de janeiro)
+        const startOfYear = new Date(currentPeriodDate.getFullYear(), 0, 1);
+        startOfYear.setHours(0, 0, 0, 0);
+        
+        // Último dia do ano (31 de dezembro)
+        const endOfYear = new Date(currentPeriodDate.getFullYear(), 11, 31);
+        endOfYear.setHours(23, 59, 59, 999);
+        
+        console.log(`Ano: ${startOfYear.toLocaleDateString()} até ${endOfYear.toLocaleDateString()}`);
+        
+        setDateFilter(startOfYear, endOfYear);
+    } catch (error) {
+        console.error("Erro ao aplicar filtro de ano:", error);
+    }
 }
 
 function clearFilter() {
-    currentPeriodDate = new Date(); // Resetar a data de referência
     const startDatePicker = document.getElementById('start-date-picker');
     const endDatePicker = document.getElementById('end-date-picker');
     
@@ -532,28 +576,6 @@ function clearFilter() {
     endDatePicker.value = endDatePicker.max;
     
     applyDateRange();
-}
-
-// Funções para navegar entre períodos
-function navigateWeek(direction) {
-    console.log(`Navegando semana: ${direction}`);
-    currentPeriodDate = new Date(currentPeriodDate);
-    currentPeriodDate.setDate(currentPeriodDate.getDate() + (direction * 7));
-    setWeekFilter(currentPeriodDate);
-}
-
-function navigateMonth(direction) {
-    console.log(`Navegando mês: ${direction}`);
-    currentPeriodDate = new Date(currentPeriodDate);
-    currentPeriodDate.setMonth(currentPeriodDate.getMonth() + direction);
-    setMonthFilter(currentPeriodDate);
-}
-
-function navigateYear(direction) {
-    console.log(`Navegando ano: ${direction}`);
-    currentPeriodDate = new Date(currentPeriodDate);
-    currentPeriodDate.setFullYear(currentPeriodDate.getFullYear() + direction);
-    setYearFilter(currentPeriodDate);
 }
 
 // Initialize when the page loads
@@ -656,18 +678,22 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
         
         // Adicionar listeners para os novos botões
-        document.getElementById('week-filter').addEventListener('click', setWeekFilter);
-        document.getElementById('month-filter').addEventListener('click', setMonthFilter);
-        document.getElementById('year-filter').addEventListener('click', setYearFilter);
-        document.getElementById('clear-filter').addEventListener('click', clearFilter);
-        
-        // Adicionar listeners para os botões de navegação
-        document.getElementById('prev-week').addEventListener('click', () => navigateWeek(-1));
-        document.getElementById('next-week').addEventListener('click', () => navigateWeek(1));
-        document.getElementById('prev-month').addEventListener('click', () => navigateMonth(-1));
-        document.getElementById('next-month').addEventListener('click', () => navigateMonth(1));
-        document.getElementById('prev-year').addEventListener('click', () => navigateYear(-1));
-        document.getElementById('next-year').addEventListener('click', () => navigateYear(1));
+        document.getElementById('week-filter').addEventListener('click', function() {
+            console.log('Botão Esta Semana clicado');
+            setWeekFilter();
+        });
+        document.getElementById('month-filter').addEventListener('click', function() {
+            console.log('Botão Este Mês clicado');
+            setMonthFilter();
+        });
+        document.getElementById('year-filter').addEventListener('click', function() {
+            console.log('Botão Este Ano clicado');
+            setYearFilter();
+        });
+        document.getElementById('clear-filter').addEventListener('click', function() {
+            console.log('Botão Limpar clicado');
+            clearFilter();
+        });
         
         // Iniciar verificação periódica de atualizações (a cada 30 segundos)
         setInterval(checkForUpdates, 30000);
