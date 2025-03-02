@@ -1,0 +1,214 @@
+/* Variáveis para tema claro */
+:root[data-theme="light"] { 
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --card-bg: #fff;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --navbar-bg: #0d6efd;
+    --border-color: #ddd;
+}
+
+/* Variáveis para tema escuro */
+:root[data-theme="dark"] {
+    --bg-color: #222;
+    --text-color: #f5f5f5;
+    --card-bg: #333;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --navbar-bg: #0a58ca;
+    --border-color: #444;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.card {
+    box-shadow: var(--card-shadow);
+    background-color: var(--card-bg);
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.3s, background-color 0.3s;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.navbar {
+    background-color: var(--navbar-bg) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.navbar .container {
+    padding: 1rem;
+}
+
+h2 {
+    font-weight: bold;
+    margin: 0;
+}
+
+.table th {
+    font-weight: 600;
+    color: #555;
+}
+
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+canvas {
+    max-height: 300px;
+}
+
+#sourceChart {
+    min-height: 400px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.chart-container {
+    position: relative;
+    height: auto;
+    min-height: 400px;
+    padding: 10px;
+}
+
+/* Botão de alternância de tema */
+#theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+#theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+/* Estilos específicos para o tema escuro */
+.dark-theme .chart-container canvas {
+    filter: brightness(0.95);
+}
+
+/* Estilos específicos para o tema escuro - textos nos cards */
+.dark-theme .text-primary, 
+.dark-theme .text-success, 
+.dark-theme .text-danger {
+    filter: brightness(1.2);
+}
+
+:root[data-theme="dark"] .table {
+    color: #fff;
+}
+
+:root[data-theme="dark"] .table th {
+    color: #fff;
+}
+
+/* Estilos da tabela para tema escuro */
+:root[data-theme="dark"] .table th,
+:root[data-theme="dark"] .table td {
+    color: #fff;
+    border-color: #444;
+}
+
+:root[data-theme="dark"] .table tbody tr:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+:root[data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme="dark"] .table-striped tbody tr:nth-of-type(odd):hover {
+    background-color: #444;
+}
+
+#current-date {
+    font-size: 1.1rem;
+    padding: 5px 10px;
+}
+
+.btn-group {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    gap: 4px;
+}
+
+.btn-group .btn {
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.btn-group .btn:hover {
+    transform: translateY(-2px);
+}
+
+:root[data-theme="dark"] .btn-outline-primary {
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+:root[data-theme="dark"] .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+:root[data-theme="dark"] .btn-outline-secondary {
+    color: #fff;
+    border-color: #6c757d;
+}
+
+:root[data-theme="dark"] .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* Estilo para o carregamento */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: white;
+    font-size: 24px;
+}
+
+.spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

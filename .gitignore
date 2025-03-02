@@ -1,5 +1,6 @@
 # Ignorar arquivos sensíveis
 node.js/leads.csv
+php/leads.csv
 
 # Ignorar node_modules
 node_modules/
