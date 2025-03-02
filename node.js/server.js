@@ -15,7 +15,7 @@ const io = new Server(server);
 app.use(express.static('public'));
 
 // CSV file path
-const csvFile = 'GIViLeads-Fabbri.csv';
+const csvFile = 'leads.csv';
 
 // Function to read and parse CSV
 function processCSV() {
