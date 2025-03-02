@@ -472,6 +472,10 @@ async function checkForUpdates() {
 }
 
 // Funções para filtros rápidos
+let currentWeekDate = new Date();
+let currentMonthDate = new Date();
+let currentYearDate = new Date();
+
 function setDateFilter(startDate, endDate) {
     const startDatePicker = document.getElementById('start-date-picker');
     const endDatePicker = document.getElementById('end-date-picker');
@@ -504,9 +508,9 @@ function setDateFilter(startDate, endDate) {
 function setWeekFilter(referenceDate = new Date()) {
     try {
         console.log(`Filtro de semana com referência: ${referenceDate}`);
-        currentPeriodDate = new Date(referenceDate);
+        currentWeekDate = new Date(referenceDate);
         
-        const startOfWeek = new Date(currentPeriodDate);
+        const startOfWeek = new Date(currentWeekDate);
         // Ajustar para segunda-feira (1 = segunda, 0 = domingo)
         const dayOfWeek = startOfWeek.getDay(); // 0 = domingo, 1 = segunda, ..., 6 = sábado
         const daysToSubtract = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Se domingo, volta 6 dias, senão voltar (dayOfWeek - 1) dias
@@ -529,14 +533,14 @@ function setWeekFilter(referenceDate = new Date()) {
 function setMonthFilter(referenceDate = new Date()) {
     try {
         console.log(`Filtro de mês com referência: ${referenceDate}`);
-        currentPeriodDate = new Date(referenceDate);
+        currentMonthDate = new Date(referenceDate);
         
         // Primeiro dia do mês
-        const startOfMonth = new Date(currentPeriodDate.getFullYear(), currentPeriodDate.getMonth(), 1);
+        const startOfMonth = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth(), 1);
         startOfMonth.setHours(0, 0, 0, 0);
         
         // Último dia do mês (dia 0 do próximo mês é o último dia do mês atual)
-        const endOfMonth = new Date(currentPeriodDate.getFullYear(), currentPeriodDate.getMonth() + 1, 0);
+        const endOfMonth = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth() + 1, 0);
         endOfMonth.setHours(23, 59, 59, 999);
         
         console.log(`Mês: ${startOfMonth.toLocaleDateString()} até ${endOfMonth.toLocaleDateString()}`);
@@ -550,14 +554,14 @@ function setMonthFilter(referenceDate = new Date()) {
 function setYearFilter(referenceDate = new Date()) {
     try {
         console.log(`Filtro de ano com referência: ${referenceDate}`);
-        currentPeriodDate = new Date(referenceDate);
+        currentYearDate = new Date(referenceDate);
         
         // Primeiro dia do ano (1º de janeiro)
-        const startOfYear = new Date(currentPeriodDate.getFullYear(), 0, 1);
+        const startOfYear = new Date(currentYearDate.getFullYear(), 0, 1);
         startOfYear.setHours(0, 0, 0, 0);
         
         // Último dia do ano (31 de dezembro)
-        const endOfYear = new Date(currentPeriodDate.getFullYear(), 11, 31);
+        const endOfYear = new Date(currentYearDate.getFullYear(), 11, 31);
         endOfYear.setHours(23, 59, 59, 999);
         
         console.log(`Ano: ${startOfYear.toLocaleDateString()} até ${endOfYear.toLocaleDateString()}`);
@@ -566,6 +570,36 @@ function setYearFilter(referenceDate = new Date()) {
     } catch (error) {
         console.error("Erro ao aplicar filtro de ano:", error);
     }
+}
+
+function prevWeek() {
+    currentWeekDate.setDate(currentWeekDate.getDate() - 7);
+    setWeekFilter(currentWeekDate);
+}
+
+function nextWeek() {
+    currentWeekDate.setDate(currentWeekDate.getDate() + 7);
+    setWeekFilter(currentWeekDate);
+}
+
+function prevMonth() {
+    currentMonthDate.setMonth(currentMonthDate.getMonth() - 1);
+    setMonthFilter(currentMonthDate);
+}
+
+function nextMonth() {
+    currentMonthDate.setMonth(currentMonthDate.getMonth() + 1);
+    setMonthFilter(currentMonthDate);
+}
+
+function prevYear() {
+    currentYearDate.setFullYear(currentYearDate.getFullYear() - 1);
+    setYearFilter(currentYearDate);
+}
+
+function nextYear() {
+    currentYearDate.setFullYear(currentYearDate.getFullYear() + 1);
+    setYearFilter(currentYearDate);
 }
 
 function clearFilter() {
@@ -693,6 +727,30 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('clear-filter').addEventListener('click', function() {
             console.log('Botão Limpar clicado');
             clearFilter();
+        });
+        document.getElementById('prev-week').addEventListener('click', function() {
+            console.log('Botão Retroceder Semana clicado');
+            prevWeek();
+        });
+        document.getElementById('next-week').addEventListener('click', function() {
+            console.log('Botão Avançar Semana clicado');
+            nextWeek();
+        });
+        document.getElementById('prev-month').addEventListener('click', function() {
+            console.log('Botão Retroceder Mês clicado');
+            prevMonth();
+        });
+        document.getElementById('next-month').addEventListener('click', function() {
+            console.log('Botão Avançar Mês clicado');
+            nextMonth();
+        });
+        document.getElementById('prev-year').addEventListener('click', function() {
+            console.log('Botão Retroceder Ano clicado');
+            prevYear();
+        });
+        document.getElementById('next-year').addEventListener('click', function() {
+            console.log('Botão Avançar Ano clicado');
+            nextYear();
         });
         
         // Iniciar verificação periódica de atualizações (a cada 30 segundos)
