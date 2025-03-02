@@ -51,16 +51,36 @@
                         <div class="row mb-3">
                             <div class="col-12">
                                 <div class="btn-group w-100">
-                                    <button id="prev-week" class="btn btn-outline-primary"><i class="fas fa-chevron-left"></i></button>
-                                    <button id="week-filter" class="btn btn-outline-primary">Esta Semana</button>
-                                    <button id="next-week" class="btn btn-outline-primary"><i class="fas fa-chevron-right"></i></button>
-                                    <button id="prev-month" class="btn btn-outline-primary"><i class="fas fa-chevron-left"></i></button>
-                                    <button id="month-filter" class="btn btn-outline-primary">Este Mês</button>
-                                    <button id="next-month" class="btn btn-outline-primary"><i class="fas fa-chevron-right"></i></button>
-                                    <button id="prev-year" class="btn btn-outline-primary"><i class="fas fa-chevron-left"></i></button>
-                                    <button id="year-filter" class="btn btn-outline-primary">Este Ano</button>
-                                    <button id="next-year" class="btn btn-outline-primary"><i class="fas fa-chevron-right"></i></button>
+                                    <div style="display: flex; flex-direction: row; width: 30%;"> 
+                                        <button id="prev-week" class="btn btn-outline-primary" style="max-width: 38px; border-radius: 10px 0px 0px 10px;">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button> 
+                                        <button id="week-filter" class="btn btn-outline-primary" style="border-radius: 0px; max-width: 50%;">Esta Semana</button> 
+                                        <button id="next-week" class="btn btn-outline-primary" style="border-radius: 0px 10px 10px 0px; max-width: 38px;">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <div style="display: flex; flex-direction: row; width: 30%;"> 
+                                        <button id="prev-month" class="btn btn-outline-primary" style="max-width: 38px; border-radius: 10px 0px 0px 10px;">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button> 
+                                        <button id="month-filter" class="btn btn-outline-primary" style="border-radius: 0px; max-width: 50%;">Este Mês</button> 
+                                        <button id="next-month" class="btn btn-outline-primary" style="border-radius: 0px 10px 10px 0px; max-width: 38px;">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <div style="display: flex; flex-direction: row; width: 30%;"> 
+                                        <button id="prev-year" class="btn btn-outline-primary" style="max-width: 38px; border-radius: 10px 0px 0px 10px;">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button> 
+                                        <button id="year-filter" class="btn btn-outline-primary" style="border-radius: 0px; max-width: 50%;">Este Ano</button> 
+                                        <button id="next-year" class="btn btn-outline-primary" style="border-radius: 0px 10px 10px 0px; max-width: 38px;">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <div style="display: flex; flex-direction: row; width: 10%;">
                                     <button id="clear-filter" class="btn btn-outline-secondary">Limpar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

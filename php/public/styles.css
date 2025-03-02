@@ -146,20 +146,47 @@ canvas {
     padding: 5px 10px;
 }
 
+/* Estilos para os botões de filtro rápido */
 .btn-group {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    overflow: hidden;
-    gap: 4px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 10px;
 }
 
 .btn-group .btn {
-    border-radius: 4px;
+    flex: 1;
+    border-radius: 20px;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-group .btn i {
+    margin: 0 5px;
 }
 
 .btn-group .btn:hover {
     transform: translateY(-2px);
+}
+
+.btn-group .btn-group-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 10px 15px;
+}
+
+.btn-group .btn-group-item:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.btn-group .btn-group-item:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 :root[data-theme="dark"] .btn-outline-primary {
